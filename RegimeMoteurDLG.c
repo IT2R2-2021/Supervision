@@ -19,6 +19,7 @@
 */
 
 // USER START (Optionally insert additional includes)
+char r1,r2;
 // USER END
 
 #include "DIALOG.h"
@@ -84,6 +85,7 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 *       _cbDialog
 */
 static void _cbDialog(WM_MESSAGE * pMsg) {
+	WM_HWIN hItem;
   int NCode;
   int Id;
   // USER START (Optionally insert additional variables)
@@ -112,6 +114,15 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     // USER START (Optionally insert additional code for further Ids)
     // USER END
     }
+		case WM_USER:
+					
+		
+				 hItem = WM_GetDialogItem(pMsg->hWin, ID_PROGBAR_0);
+				 PROGBAR_SetMinMax(hItem,0,255);
+				 PROGBAR_SetValue(hItem, r1);
+				 hItem = WM_GetDialogItem(pMsg->hWin, ID_PROGBAR_1);
+				 PROGBAR_SetMinMax(hItem,0,255);
+				 PROGBAR_SetValue(hItem, r2);
     break;
   // USER START (Optionally insert additional message handling)
   // USER END

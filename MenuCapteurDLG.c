@@ -36,10 +36,12 @@
 #define ID_TEXT_3     (GUI_ID_USER + 0x06)
 #define ID_TEXT_4     (GUI_ID_USER + 0x07)
 #define ID_BUTTON_0     (GUI_ID_USER + 0x08)
+//#define ID_CHECKBOX_0        (GUI_ID_USER + 0x09)
 
 
 
 // USER START (Optionally insert additional defines)
+char checked=0;
 // USER END
 
 /*********************************************************************
@@ -58,13 +60,15 @@
 */
 static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
   { WINDOW_CreateIndirect, "MenuCapteur", ID_WINDOW_0, 0, 0, 480, 272, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Capteur 4 :", ID_TEXT_0, 32, 171, 80, 20, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Capteur 3 :", ID_TEXT_1, 27, 144, 80, 20, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Capteur 2 :", ID_TEXT_2, 28, 119, 80, 20, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Capteur 1 :", ID_TEXT_3, 26, 93, 80, 20, 0, 0x0, 0 },
-  { TEXT_CreateIndirect, "Capteur 5 :", ID_TEXT_4, 29, 201, 80, 20, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Capteur 4 :", ID_TEXT_0, 20,93 , 180, 20, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Capteur 3 :", ID_TEXT_1, 20, 144, 180, 20, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Capteur 2 :", ID_TEXT_2, 20, 119, 180, 20, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Capteur 1 :", ID_TEXT_3, 20, 171, 180, 20, 0, 0x0, 0 },
+  { TEXT_CreateIndirect, "Capteur 5 :", ID_TEXT_4, 20, 201, 180, 20, 0, 0x0, 0 },
   { BUTTON_CreateIndirect, "retour", ID_BUTTON_0, 11, 13, 80, 20, 0, 0x0, 0 },
+	//{ CHECKBOX_CreateIndirect, "Checkbox", ID_CHECKBOX_0, 350, 92, 158, 50, 0, 0x0, 0 },
   // USER START (Optionally insert additional widgets)
+
   // USER END
 };
 
@@ -76,6 +80,7 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 */
 
 // USER START (Optionally insert additional static code)
+char c1=0,c2=0,c3=0,c4=0,c5=0;
 // USER END
 
 /*********************************************************************
@@ -83,7 +88,8 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 *       _cbDialog
 */
 extern WM_HWIN hDlg2,hDlg,hDlg3,hDlg4;
-char c1,c2,c3,c4,c5;
+
+
 static void _cbDialog(WM_MESSAGE * pMsg) {
   WM_HWIN hItem;
   int     NCode,i;
@@ -98,23 +104,23 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
     // Initialization of 'Capteur 1 :'
     //
     hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_0);
-		sprintf(buff,"capteur1: %d ",c1);
+		sprintf(buff,"capteur AV-D: %d ",c1);
 		TEXT_SetText(hItem,buff);
     TEXT_SetFont(hItem, GUI_FONT_13_1);
 		hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_1);
-		sprintf(buff,"capteur2: %d ",c2);
+		sprintf(buff,"capteur AV-M: %d ",c2);
 		TEXT_SetText(hItem,buff);
     TEXT_SetFont(hItem, GUI_FONT_13_1);
 		hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_2);
-		sprintf(buff,"capteur3: %d ",c3);
+		sprintf(buff,"capteur AV-G: %d ",c3);
 		TEXT_SetText(hItem,buff);
     TEXT_SetFont(hItem, GUI_FONT_13_1);
 		hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_3);
-		sprintf(buff,"capteur4: %d ",c4);
+		sprintf(buff,"capteur AR-D: %d ",c4);
 		TEXT_SetText(hItem,buff);
     TEXT_SetFont(hItem, GUI_FONT_13_1);
 		hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_4);
-		sprintf(buff,"capteur5: %d ",c5);
+		sprintf(buff,"capteur AR-G: %d ",c5);
 		TEXT_SetText(hItem,buff);
     TEXT_SetFont(hItem, GUI_FONT_13_1);
     // USER START (Optionally insert additional code for further widget initialization)
@@ -129,6 +135,7 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
       case WM_NOTIFICATION_CLICKED:
         // USER START (Optionally insert code for reacting on notification message)
 			WM_BringToTop(hDlg);
+			
         // USER END
         break;
       case WM_NOTIFICATION_RELEASED:
@@ -139,17 +146,54 @@ static void _cbDialog(WM_MESSAGE * pMsg) {
       // USER END
       }
       break;
-    // USER START (Optionally insert additional code for further Ids)
-    // USER END
-    }
-    break;
   // USER START (Optionally insert additional message handling)
   // USER END
-  default:
+//	case ID_CHECKBOX_0: // Notifications sent by 'Checkbox'
+//      switch(NCode) {
+//      case WM_NOTIFICATION_CLICKED:
+//        // USER START (Optionally insert code for reacting on notification message)
+//        // USER END
+//        break;
+//      case WM_NOTIFICATION_RELEASED:
+//        // USER START (Optionally insert code for reacting on notification message)
+//        // USER END
+//        break;
+//      case WM_NOTIFICATION_VALUE_CHANGED:
+//        // USER START (Optionally insert code for reacting on notification message)
+//        // USER END
+//        break;
+//      // USER START (Optionally insert additional code for further notification handling)
+//      // USER END
+//      }
+//      break;
+//    // USER START (Optionally insert additional code for further Ids)
+//    // USER END
+    }
+	case WM_USER: 
+	hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_0);
+	sprintf(buff,"capteur AV-D: %d ",c1);
+	TEXT_SetText(hItem,buff);
+	hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_1);
+	sprintf(buff,"capteur AV-M: %d ",c2);
+	TEXT_SetText(hItem,buff);
+	hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_2);
+	sprintf(buff,"capteur AV-G: %d ",c3);
+	TEXT_SetText(hItem,buff);
+	hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_3);
+	sprintf(buff,"capteur AR-D: %d ",c4);
+	TEXT_SetText(hItem,buff);
+	hItem = WM_GetDialogItem(pMsg->hWin, ID_TEXT_4);
+	sprintf(buff,"capteur AR-G: %d ",c5);
+	TEXT_SetText(hItem,buff);
+	
+//	hItem = WM_GetDialogItem(pMsg->hWin, ID_CHECKBOX_0);
+	//CHECKBOX_Check(hItem);
+	//else CHECKBOX_Uncheck(hItem);
+	
+	break;
+  default:	
     WM_DefaultProc(pMsg);
-		
   }
-		
 }
 
 

@@ -22,6 +22,7 @@
 // USER END
 
 #include "DIALOG.h"
+#include "stdio.h"
 
 /*********************************************************************
 *
@@ -33,6 +34,7 @@
 #define ID_BUTTON_0     (GUI_ID_USER + 0x01)
 #define ID_BUTTON_1     (GUI_ID_USER + 0x02)
 #define ID_BUTTON_2     (GUI_ID_USER + 0x03)
+
 
 
 // USER START (Optionally insert additional defines)
@@ -76,8 +78,11 @@ static const GUI_WIDGET_CREATE_INFO _aDialogCreate[] = {
 *       _cbDialog
 */
 extern WM_HWIN hDlg2,hDlg,hDlg3,hDlg4;
+extern char c1;
 
 static void _cbDialog(WM_MESSAGE * pMsg) {
+	char buff[20];
+	WM_HWIN hItem;
   int NCode;
   int Id;
   // USER START (Optionally insert additional variables)
